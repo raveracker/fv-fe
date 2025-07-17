@@ -1,0 +1,69 @@
+{
+  "name": "fraudvisor",
+  "displayName": "Fraudvisor",
+  "version": "1.0.0",
+  "description": "A web extension to identify scam websites",
+  "author": "Allan <allanjeo95@gmail.com>",
+  "scripts": {
+    "dev": "run-p dev:*",
+    "package": "plasmo package",
+    "start": "next start",
+    "dev:plasmo": "plasmo dev",
+    "dev:next": "next dev --port 1947",
+    "build:plasmo": "plasmo build",
+    "build": "next build"
+  },
+  "dependencies": {
+    "@plasmohq/messaging": "^0.7.2",
+    "@plasmohq/storage": "^1.15.0",
+    "@radix-ui/react-alert-dialog": "^1.1.14",
+    "@radix-ui/react-checkbox": "^1.1.1",
+    "@radix-ui/react-dialog": "^1.1.1",
+    "@radix-ui/react-label": "^2.1.7",
+    "@radix-ui/react-separator": "^1.1.7",
+    "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/react-tooltip": "^1.1.2",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.407.0",
+    "next": "15.3.5",
+    "next-themes": "^0.4.6",
+    "plasmo": "0.90.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "sonner": "^2.0.6",
+    "tailwind-merge": "^2.4.0",
+    "tailwindcss-animate": "^1.0.7",
+    "webextension-polyfill": "^0.12.0",
+    "zustand": "^4.5.4"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^2.22.0",
+    "@eslint-react/eslint-plugin": "^1.52.3",
+    "@ianvs/prettier-plugin-sort-imports": "4.1.1",
+    "@types/chrome": "0.0.258",
+    "@types/firefox-webext-browser": "^120.0.4",
+    "@types/node": "20.11.5",
+    "@types/react": "18.2.48",
+    "@types/react-dom": "18.2.18",
+    "autoprefixer": "^10.4.19",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.39",
+    "prettier": "3.2.4",
+    "tailwindcss": "^3.4.4",
+    "typescript": "5.3.3"
+  },
+  "manifest": {
+    "host_permissions": [
+      "https://*/*",
+      "http://*/*"
+    ],
+    "permissions": [
+      "scripting",
+      "storage",
+      "activeTab",
+      "tabs"
+    ]
+  }
+}

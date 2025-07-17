@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Tektur:wght@400..900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 245 22% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 245 22% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 245 22% 10%;
+    --primary: 228 81% 59%;
+    --primary-foreground: 227 82% 98%;
+    --secondary: 248 93% 66%;
+    --secondary-foreground: 248 89% 96%;
+    --accent: 227 82% 98%;
+    --accent-foreground: 228 81% 59%;
+    --border: 240 9% 98%;
+    --input: 240 9% 98%;
+    --ring: 229 80% 67%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --radius: 0.75rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --font-base: "Tektur", sans-serif;
+  }
+
+  .dark {
+    --background: 245 22% 10%;
+    --foreground: 0 0%100%;
+    --card: 246 23% 16%;
+    --card-foreground: 0 0%100%;
+    --popover: 246 23% 16%;
+    --popover-foreground: 0 0%100%;
+    --primary: 228 81% 59%;
+    --primary-foreground: 227 82% 98%;
+    --secondary: 248 93% 66%;
+    --secondary-foreground: 248 89% 96%;
+    --accent: 240 6% 34%;
+    --accent-foreground: 240 9% 98%;
+    --border: 246 23% 16%;
+    --input: 246 23% 16%;
+    --ring: 229 80% 67%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --font-base: "Tektur", sans-serif;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    font-family: theme("fontFamily.sans");
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  @apply bg-background;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-400;
+}
