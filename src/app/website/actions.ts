@@ -4,17 +4,35 @@ import { cookies } from "next/headers";
 import type { ReviewResponse } from "~types/review";
 import type { Website } from "~types/website";
 
-export async function getWebsiteData(url: string): Promise<Website> {
-  const token = (await cookies()).get("token")?.value;
-  if (!token) throw new Error("Unauthorized: missing token");
+function normalizeUrl(input: string): string {
+  // Require http/https and remove trailing slash(es)
+  if (!/^https?:\/\//i.test(input)) {
+    throw new Error('URL must start with http:// or https://')
+  }
 
+  try {
+    const u = new URL(input)
+    if (u.protocol !== 'http:' && u.protocol !== 'https:') {
+      throw new Error('Only http/https are allowed')
+    }
+    // Drop trailing slashes from pathname (keep root as empty)
+    const cleanPath = u.pathname.replace(/\/+$/, '')
+    return `${u.protocol}//${u.host}${cleanPath}${u.search}`
+  } catch {
+    // Fallback: just strip trailing slash characters at the end
+    return input.replace(/\/+$/, '')
+  }
+}
+
+export async function getWebsiteData(urlInput: string): Promise<Website> {
+  if (!urlInput) return undefined
+  const url = normalizeUrl(urlInput)
   const res = await fetch(
     `${process.env.PLASMO_PUBLIC_API_URL}/api/v1/website/analyze`,
     {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ url }),
       cache: "no-store",
@@ -32,11 +50,6 @@ export async function fetchWebsiteReviews(
   page: number = 1,
   limit: number = 10
 ): Promise<ReviewResponse> {
-  // 1) Grab your auth token from cookies
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token")?.value;
-  if (!token) throw new Error("Unauthorized: missing token");
-
   // 2) Build URL with pagination params
   const url = new URL(
     `${process.env.PLASMO_PUBLIC_API_URL}/api/v1/website/${encodeURIComponent(id)}`
@@ -47,9 +60,6 @@ export async function fetchWebsiteReviews(
   // 3) Perform the GET
   const res = await fetch(url.toString(), {
     method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
     redirect: "follow",
     cache: "no-store",
   });

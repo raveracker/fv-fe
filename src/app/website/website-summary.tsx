@@ -1,3 +1,5 @@
+'use client'
+
 import { Card, CardHeader, CardTitle, CardContent } from "~components/ui/card";
 import {
   formatPercent,
@@ -5,17 +7,22 @@ import {
   setProgressClasses,
   setRatingsClasses,
 } from "~lib/utils";
+import { Button } from "~components/ui/button";
 import type { Website } from "~types/website";
+import { useRouter } from "next/navigation";
 
 export default function WebsiteStatusSummary({
   websiteData,
 }: {
   websiteData: Website;
 }) {
+  const router = useRouter()
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-2xl font-bold">Website Analysis</CardTitle>
+        <CardTitle className="text-2xl font-bold flex justify-between">Website Analysis
+        <Button onClick={() => router.push("/analyze")}>Go Back</Button>
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid md:grid-cols-2 gap-6">
