@@ -5,6 +5,7 @@ import {
   removeFromChromeStorage,
   removeFromPageLocalStorage,
 } from "~helpers/storage";
+import { redirect } from "next/navigation";
 
 interface WebsiteViewProps {
   data: Website;
@@ -24,9 +25,7 @@ export function WebsiteView({ data }: WebsiteViewProps) {
   };
 
   const handleShowMoreDetails = () => {
-    chrome.tabs.create({
-      url: `${process.env.PLASMO_PUBLIC_SITE_URL}/website?url=${data.url}`,
-    });
+    redirect(`/website?url=${data.url}`);
   };
 
   const websiteStatusText = () => {
@@ -74,11 +73,11 @@ export function WebsiteView({ data }: WebsiteViewProps) {
       <Button className="text-base" onClick={handleShowMoreDetails}>
         Show More Details
       </Button>
-      <div className="flex items-center justify-center gap-1">
+      {/* <div className="flex items-center justify-center gap-1">
         <Button variant="link" className="p-0 text-base" onClick={handleLogout}>
           Logout
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 }
