@@ -14,6 +14,8 @@ import { Input } from "~components/ui/input";
 import { Label } from "~components/ui/label";
 import { getWebsiteData } from "~app/website/actions";
 import { toOrigin } from "~helpers/url";
+import { WebsiteView } from "~views/website";
+import { Loading } from "~views/loading";
 
 // IMPORTANT: import the server action (with 'use server' in its file)
 
@@ -35,19 +37,23 @@ export default function AnalyzePage() {
     }
     setIsWebsiteLoading(true);
     setError(null);
-    const normalizedUrl = toOrigin(url)
+    // const normalizedUrl = toOrigin(url);
     try {
-      router.push(`/website?url=${normalizedUrl}`);
+      const website = await getWebsiteData(input);
+      if (website) setData(website);
+      setIsWebsiteLoading(false);
     } catch (err) {
       console.error(err);
       setError(err);
-      toast.error("Something went wrong while analyzing the website.");
+      toast.error(
+        "Something went wrong while analyzing the website. Please try again?"
+      );
     } finally {
       setIsWebsiteLoading(false);
     }
   };
 
-  const disabled = isWebsiteLoading || isPending;
+  const disabled = isWebsiteLoading || isPending || isWebsiteLoading;
 
   return (
     <div className="container max-w-4xl mx-auto py-8 space-y-6 relative">
@@ -80,6 +86,8 @@ export default function AnalyzePage() {
           </form>
         </CardContent>
       </Card>
+      {disabled || (isWebsiteLoading && <Loading />)}
+      {data && !disabled && !isWebsiteLoading && <WebsiteView data={data} />}
     </div>
   );
 }
