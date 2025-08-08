@@ -52,12 +52,6 @@ export default function AnalyzePage() {
   return (
     <div className="container max-w-4xl mx-auto py-8 space-y-6 relative">
       <WebsiteLogo />
-      <div className="absolute top-4 right-8 cursor-pointer">
-        <Link href="/account">
-          <Settings />
-        </Link>
-      </div>
-
       <Card>
         <CardHeader>
           <CardTitle>Analyze Domain</CardTitle>
